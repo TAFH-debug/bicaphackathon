@@ -14,6 +14,8 @@ export type QuestionCreate = {
 export type Test = {
     id: string;
     name: string;
+    difficulty: number;
+    category: string;
     questions: Question[];
 }
 
