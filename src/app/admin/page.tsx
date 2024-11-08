@@ -1,10 +1,17 @@
 'use client';
 import axiosInstance from "@/axiosInstance";
-import { useUpload } from "@/hooks/hooks";
-import { Question, User } from "@/types/types";
-import { Autocomplete, AutocompleteItem, Button, Card, CardHeader, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { QuestionCreate } from "@/types/types";
+import { Button, Card, CardHeader, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { useState } from "react";
 import { AiFillBook, AiFillPlusCircle } from "react-icons/ai";
+
+
+type TestCreate = {
+    name: string, 
+    questions: QuestionCreate[],
+    difficulty: number,
+    category: string,
+}
 
 export default function Page() {
     const [logined, setLogined] = useState(false);
@@ -15,16 +22,16 @@ export default function Page() {
 
     return <div className="flex w-full min-h-screen items-center flex-col justify-center gap-3">
         <h1 className="text-3xl font-bold">Admin actions</h1>
-        <AddBookAction />
-        <TransferBookAction />
-        <UnattachBookAction />
+        <AddTestAction />
     </div>
 }
 
 function AddTestAction() {
-    const [testData, setTestData] = useState({
+    const [testData, setTestData] = useState<TestCreate>({
         name: '',
-        questions: []
+        questions: [],
+        difficulty: 0,
+        category: '',
     });
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -33,7 +40,9 @@ function AddTestAction() {
             await axiosInstance.post('/tests', testData);
             setTestData({
                 name: '',
-                questions: []
+                questions: [],
+                difficulty: 0,
+                category: '',
             })
         } catch (error) {
             console.log(error);
@@ -46,7 +55,7 @@ function AddTestAction() {
         <CardHeader className="flex justify-between">
             <div className="flex gap-3 items-center">
                 <AiFillBook />
-                <p>Add new book</p>
+                <p>Add new test</p>
             </div>
             <AiFillPlusCircle />
         </CardHeader>
@@ -63,7 +72,7 @@ function AddTestAction() {
                 <Input
                     isRequired
                     type="text"
-                    label="Title"
+                    label="Name"
                     variant="bordered"
                     onChange={(e) => setTestData({ ...testData, name: e.target.value })}
                     value={testData.name}
@@ -71,37 +80,31 @@ function AddTestAction() {
                 />
                 <Input
                     isRequired
-                    type="text"
-                    label="Author"
+                    type="number"
+                    label="Difficulty"
                     variant="bordered"
-                    onChange={(e) => setTestData({ ...testData, author: e.target.value })}
-                    value={bookData.author}
+                    onChange={(e) => setTestData({ ...testData, difficulty: +e.target.value })}
+                    value={''+testData.difficulty}
                     className="max-w-xs"
                 />
-                <Textarea
+                <Input
                     isRequired
-                    label="Description"
+                    type="text"
+                    label="Category"
                     variant="bordered"
-                    onChange={(e) => setBookData({ ...bookData, description: e.target.value })}
-                    value={bookData.description}
+                    onChange={(e) => setTestData({ ...testData, category: e.target.value })}
+                    value={testData.category}
                     className="max-w-xs"
                 />
-                <Input 
-                    labelPlacement="inside"
-                    label="Preview image"
-                    type="file"
-                    variant="bordered"
-                    color="primary"
-                    onChange={handlePreview}
-                />
-                <Input 
-                    labelPlacement="inside"
-                    label="PDF File"
-                    type="file"
-                    variant="bordered"
-                    color="primary"
-                    onChange={handleBook}
-                />
+                {
+                    testData.questions.map((question, index) => <div key={index} className="flex items-center gap-2">
+                        <p className="text-black">{question.text}</p>
+                        <Button color="danger" variant="light" onPress={() => setTestData({ ...testData, questions: testData.questions.filter((_, i) => i !== index) })}>
+                            Remove
+                        </Button>
+                    </div>)
+                }
+                <AddQuestionAction addQuestion={(q: QuestionCreate) => setTestData({...testData, questions: [...testData.questions, q]})}/>
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
@@ -121,27 +124,23 @@ function AddTestAction() {
     </>
 }
 
-function AddQuestionAction() {
-    const [books, setBooks] = useState<Question[]>([]); 
-    const [users, setUsers] = useState<User[]>([]); 
+function AddQuestionAction({ addQuestion }: { addQuestion: (questions: QuestionCreate) => void }) {
+
+    const [questionData, setQuestionData] = useState<QuestionCreate>({
+        text: '',
+        options: [],
+        right: 0
+    });
+    const [cur, setCur] = useState('');
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-    const createQuestion = async () => {
-        try {
-            await axiosInstance.post(`/books/${bookID}/transfer`, { userID });
-        } catch (error) {
-            console.log(error);
-            alert('An error occurred');
-        }
-    }
-
     return <>
-    <Card className="md:w-1/6 bg-primary text-background" isPressable isBlurred onPress={onOpen}>
+    <Card className="bg-primary text-background" isPressable isBlurred onPress={onOpen}>
         <CardHeader className="flex justify-between">
             <div className="flex gap-3 items-center">
                 <AiFillBook />
-                <p>Bind book</p>
+                <p>Add Question</p>
             </div>
             <AiFillPlusCircle />
         </CardHeader>
@@ -155,90 +154,56 @@ function AddQuestionAction() {
           <>
             <ModalHeader className="flex flex-col gap-1">Add new book</ModalHeader>
             <ModalBody>
+                <Input
+                    isRequired
+                    type="text"
+                    label="Text"
+                    variant="bordered"
+                    onChange={(e) => setQuestionData({ ...questionData, text: e.target.value })}
+                    value={questionData.text}
+                    className="max-w-xs"
+                />
+                <Input
+                    isRequired
+                    type="number"
+                    label="Right"
+                    variant="bordered"
+                    onChange={(e) => setQuestionData({ ...questionData, right: +(e.target.value) })}
+                    value={''+questionData.right}
+                    className="max-w-xs"
+                />
+                {
+                    questionData.options.map((option, index) => <div key={index} className="flex items-center gap-2">
+                        <p className="text-black">{option}</p>
+                        <Button color="danger" variant="light" onPress={() => setQuestionData({ ...questionData, options: questionData.options.filter((_, i) => i !== index) })}>
+                            Remove
+                        </Button>
+                    </div>)
+                }
+                <div className="flex items-center gap-2">
+                    <Input
+                        isRequired
+                        type="text"
+                        label="Option"
+                        variant="bordered"
+                        onChange={(e) => setCur(e.target.value)}
+                        value={cur}
+                        className="max-w-xs"
+                    />
+                    <Button variant="light" onPress={() => {
+                        setQuestionData({ ...questionData, options: [...questionData.options, cur] });
+                        setCur('');
+                    }}>
+                        AddOption
+                    </Button>
+                </div>
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
               <Button color="primary" onPress={() => {
-                onClose();
-              }}>
-                Add
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-        </ModalContent>
-    </Modal>
-</>
-}
-
-function UnattachBookAction() {
-    const [books, setBooks] = useState<Book[]>([]); 
-
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const [bookID, setBookID] = useState('');
-
-    useEffect(() => {
-        const getBooks = async () => {
-            try {
-                const books = await axiosInstance.get('/books');
-                setBooks(books.data);
-            } catch (error) {
-                console.log(error);
-                alert('An error occurred');
-            }
-        }
-        getBooks();
-    }, []);
-
-    const transferBook = async () => {
-        console.log(bookID);
-        try {
-            await axiosInstance.delete(`/books/${bookID}/transfer`);
-        } catch (error) {
-            console.log(error);
-            alert('An error occurred');
-        }
-    }
-
-    return <>
-    <Card className="md:w-1/6 bg-primary text-background" isPressable isBlurred onPress={onOpen}>
-        <CardHeader className="flex justify-between">
-            <div className="flex gap-3 items-center">
-                <AiFillBook />
-                <p>Unbind book</p>
-            </div>
-            <AiFillPlusCircle />
-        </CardHeader>
-    </Card>
-    <Modal 
-        isOpen={isOpen} 
-        onOpenChange={onOpenChange} 
-    >
-        <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">Add new book</ModalHeader>
-            <ModalBody>
-                <Autocomplete
-                    label="Book"
-                    selectedKey={bookID}
-                    onSelectionChange={(e) => setBookID(e!.toString())}
-                >
-                    {books.map((book) => (
-                        <AutocompleteItem key={book.id}>
-                            {book.title}
-                        </AutocompleteItem>
-                    ))}
-                </Autocomplete>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-              <Button color="primary" onPress={() => {
-                transferBook();
+                addQuestion(questionData);
                 onClose();
               }}>
                 Add
