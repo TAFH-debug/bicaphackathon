@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`text-foreground bg-background antialiased ${inter.className}`}
+        className={`text-foreground bg-background antialiased hide-scrollbar ${inter.className}`}
       >
         <Providers>
           <Header />

@@ -1,6 +1,6 @@
 "use client";
 import axiosInstance from "@/axiosInstance";
-import { Book, User } from "@/types/types";
+import { User } from "@/types/types";
 import {
   Navbar,
   NavbarBrand,
@@ -8,16 +8,11 @@ import {
   NavbarItem,
   Link,
   Button,
-  Autocomplete,
-  AutocompleteItem,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
 
 export function Header() {
   const [user, setUser] = useState<User | null>(null);
-  const [books, setBooks] = useState<Book[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
   
   useEffect(() => {
     if (window && localStorage.getItem("token")) {
@@ -27,31 +22,18 @@ export function Header() {
     }
   }, []);
 
-  const fetchBooks = async (query: string) => {
-    try {
-      const res = await axiosInstance.post(`/search`, {
-        query,
-      });
-      console.log(res.data);
-      setBooks(res.data.books);
-      setUsers(res.data.users);
-    } catch (error) {
-      console.error(error);
-      alert("An error occurred while fetching the book data");
-    }
-  }
   return (
     <Navbar>
       <NavbarBrand>
         <p className="font-bold text-inherit text-xl text-primary">
           <a href="/">
-            Library
+            Edu platform
           </a>
         </p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-        <Autocomplete
+        {/* <Autocomplete
           placeholder="Search"
           className="max-w-xs"
           onInputChange={fetchBooks}
@@ -76,7 +58,7 @@ export function Header() {
               )
             )
           }
-        </Autocomplete>
+        </Autocomplete> */}
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">

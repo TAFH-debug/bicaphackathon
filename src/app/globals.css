@@ -5,14 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #22D732;
+  --primary: #2555e3;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #22D732;
+    --primary: #2555e3;
   }
 }
 
@@ -32,4 +32,14 @@ body {
   overflow-x: auto;
   grid-auto-flow: column;
   grid-auto-columns: minmax(160px,1fr);
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
