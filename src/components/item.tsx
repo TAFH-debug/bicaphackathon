@@ -9,7 +9,7 @@ interface ItemProps {
 const Item: React.FC<ItemProps> = ({ id, color, label }) => {
   return (
     <div
-      className={`w-full h-full flex items-center justify-center text-white text-4xl cursor-pointer select-none relative ${color} rounded-[20px]`}
+      className={`w-full h-full p-2 flex items-center justify-center text-white text-2xl cursor-pointer select-none ${color} rounded-[20px]`}
       data-swapy-item={id}
     >
       <div>{label}</div>
