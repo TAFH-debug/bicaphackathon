@@ -27,7 +27,7 @@ export function Header() {
       <NavbarBrand>
         <p className="font-bold text-inherit text-xl text-primary">
           <a href="/">
-            Edu platform
+          BICAPRIPACDIRAP
           </a>
         </p>
       </NavbarBrand>
