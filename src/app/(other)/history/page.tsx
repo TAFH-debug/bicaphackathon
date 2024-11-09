@@ -22,37 +22,37 @@ export default function List() {
         keys: [
             {
                 id: '1',
-                value: 'Вопрос 1'
+                value: 'Оғыз мемлекеті'
             },
             {
                 id: '2',
-                value: 'Вопрос 2'
+                value: 'Түрік қағаны'
             },
             {
                 id: '3',
-                value: 'Вопрос 3'
+                value: 'Түргеш  қағанаты'
             },
             {
                 id: '4',
-                value: 'Вопрос 4'
+                value: 'Қимақ  қағанаты'
             }
         ],
         values: [
             {
                 id: '1',
-                value: 'Ответ 1'
+                value: 'IX соңы – XI ғасырдың басы'
             },
             {
                 id: '2',
-                value: 'Ответ 2'
+                value: '603-704 жж'
             },
             {
                 id: '3',
-                value: 'Ответ 3'
+                value: '704-756 жж'
             },
             {
                 id: '4',
-                value: 'Ответ 4'
+                value: 'IX соңы – XI ғасырдың басы'
             }
         ]
     };
