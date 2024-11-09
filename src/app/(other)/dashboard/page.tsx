@@ -19,12 +19,12 @@ export default function DashboardPage() {
     }, []);
 
     if (!user) {
-        return <div className="w-full flex justify-center">
+        return <div className="min-h-screen w-full flex justify-center">
             <Spinner />
         </div>
     }
     
-    return <div className="w-full">
+    return <div className="w-full min-h-screen">
     <div className="flex w-full flex-col md:flex-row">
         <Card className="md:w-3/4 m-2">
                 <h1 className="font-bold text-xl mx-5 mt-5">Completed tests</h1>

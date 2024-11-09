@@ -76,7 +76,7 @@ function ExerciseCard({ exercise, exerciseName, next }: { exercise: Exercise, ex
     const handleCheckAnswer = () => {
         const correct = parseFloat(userAnswer) === exercise.answer;
         setIsCorrect(correct);
-        next(correct); // Proceed to next after checking answer
+        next(correct);
     };
 
     return (

@@ -24,6 +24,13 @@ export type Exercise = {
     name: string;
 }
 
+export type Article = {
+    id: string;
+    title: string;
+    content: string;
+    author: string;
+}
+
 export type User = {
     id: string;
     name: string;

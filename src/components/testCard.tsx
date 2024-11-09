@@ -10,7 +10,7 @@ const difficultyColors = {
 
 export default function TestCard(test: Test) {
   return (
-    <div className="p-4 min-w-36 flex flex-col items-start justify-between rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out max-w-48">
+    <div className="m-4 p-4 min-w-36 flex flex-col items-start justify-between rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out max-w-48">
       <h2 className="text-xl font-semibold text-gray-800 mb-3">{test.name}</h2>
       <div className="flex items-center space-x-4 mb-4">
         <Chip color={difficultyColors[test.difficulty][0]} className="text-sm font-semibold">
