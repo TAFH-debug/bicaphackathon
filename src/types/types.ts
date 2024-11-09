@@ -22,6 +22,7 @@ export type Test = {
 export type Exercise = {
     id: string;
     name: string;
+    subject: string;
 }
 
 export type User = {
