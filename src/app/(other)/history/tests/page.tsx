@@ -8,7 +8,7 @@ const HistoryTestsPage = () => {
         <h1 className="text-2xl font-bold mb-6">Tests</h1>
         <GetTests category="history" />
         <h1 className="text-2xl font-bold mb-6">Exercises</h1>
-        <GetExercises category="kazakh" />
+        <GetExercises category="history" />
       </div>
       {/* Footer will always be at the bottom */}
     </div>

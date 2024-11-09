@@ -16,14 +16,24 @@ const GetExercises: React.FC<GetExercisesProps> = ({ category }) => {
     // Simulating a backend fetch with dummy data
     setTimeout(() => {
       const dummyExercises: Exercise[] = [
-        { id: "1", name: "Exercise 1", subject: "math" },
-        { id: "2", name: "Exercise 2", subject: "kazakh"  },
-        { id: "3", name: "Exercise 3", subject: "history" },
-        { id: "4", name: "Exercise 4" },
-        { id: "5", name: "Exercise 5" },
+        { id: "1", name: "Exercise 1 (Math)", subject: "math" },
+        { id: "2", name: "Exercise 2 (KZ)", subject: "kazakh" },
+        { id: "3", name: "Exercise 3 (History)", subject: "history" },
+        { id: "4", name: "Exercise 4 (History)", subject: "history" },
+        { id: "5", name: "Exercise 5 (Math)", subject: "math" },
+        { id: "6", name: "Exercise 6 (Math)", subject: "math" },
+        { id: "7", name: "Exercise 7 (KZ)", subject: "kazakh" },
+        { id: "9", name: "Exercise 8 (History)", subject: "history" },
+        { id: "9", name: "Exercise 9 (History)", subject: "history" },
+        { id: "10", name: "Exercise 10 (Math)", subject: "math" },
       ];
 
-      setExercises(dummyExercises);
+      // Filter exercises based on the category (subject)
+      const filteredExercises = dummyExercises.filter(
+        (exercise) => exercise.subject === category
+      );
+
+      setExercises(filteredExercises);
       setLoading(false);
     }, 1000);
 

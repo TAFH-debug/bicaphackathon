@@ -9,13 +9,13 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                     <Button className="w-full mx-1" as={Link} href="/dashboard" variant="light">
                         <AiOutlineDashboard /><span>Dashboard</span>
                     </Button>
-                    <Button className="w-full mx-1" as={Link} href="/kaz" variant="light">
+                    <Button className="w-full mx-1" as={Link} href="/kaz/tests" variant="light">
                         <AiOutlineGroup /><span>Казахский язык</span>
                     </Button>
-                    <Button className="w-full mx-1" as={Link} href="/math" variant="light">
+                    <Button className="w-full mx-1" as={Link} href="/math/tests" variant="light">
                         <AiOutlineComment /><span>Математика</span>
                     </Button>
-                    <Button className="w-full mx-1" as={Link} href="/history" variant="light">
+                    <Button className="w-full mx-1" as={Link} href="/history/tests" variant="light">
                         <AiOutlineBook /><span>История</span>
                     </Button>
                 </div>
