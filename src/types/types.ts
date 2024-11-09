@@ -39,5 +39,5 @@ export type User = {
     email: string;
     score: number;
     tests: Test[];
-    exercises: Exercise[];
+    completedExercises: Exercise[];
 }
