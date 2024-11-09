@@ -18,6 +18,9 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                     <Button className="w-full mx-1" as={Link} href="/history/tests" variant="light">
                         <AiOutlineBook /><span>История</span>
                     </Button>
+                    <Button className="w-full mx-1" as={Link} href="/articles" variant="light">
+                        <AiOutlineBook /><span>Статъи</span>
+                    </Button>
                 </div>
 
                 <div className="w-full md:w-5/6">
