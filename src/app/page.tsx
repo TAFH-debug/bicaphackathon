@@ -43,7 +43,7 @@ export default function Home() {
       <h2 className="mb-1 text-3xl font-semibold tracking-tighter text-center">
         Tests and Tasks
       </h2>
-      <div className="max-w-4xl mx-auto fsac4 md:px-1 px-3">
+      <div className="max-w-4xl mx-auto fsac4 md:px-1 px-3 mb-5">
         <div className="ktq4">
           <h3 className="pt-3 font-semibold text-lg ">
             Mathematics
@@ -69,6 +69,7 @@ export default function Home() {
           </p>
         </div>
       </div>
+
 
     </section>
     

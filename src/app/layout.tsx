@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/header";
-import {Footer} from "@/components/footer"
+import { Footer } from "@/components/footer";
 import { Inter } from 'next/font/google'
- 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`text-foreground bg-background antialiased hide-scrollbar ${inter.className}`}
+        className={`text-foreground bg-background antialiased hide-scrollbar ${inter.className} flex flex-col min-h-screen`}
       >
         <Providers>
           <Header />
-          {children}
-          <Footer />
+          <main className="flex-grow">{children}</main> {/* This ensures the content area grows */}
+          <Footer /> {/* Footer always at the bottom */}
         </Providers>
       </body>
     </html>

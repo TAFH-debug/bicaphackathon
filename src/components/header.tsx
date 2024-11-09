@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 export function Header() {
   const [user, setUser] = useState<User | null>(null);
-  
+
   useEffect(() => {
     if (window && localStorage.getItem("token")) {
       axiosInstance.get("/users/me").then((res) => {
@@ -23,51 +23,30 @@ export function Header() {
   }, []);
 
   return (
-    <Navbar>
+    <Navbar isBordered>
       <NavbarBrand>
         <p className="font-bold text-inherit text-xl text-primary">
-          <a href="/">
-          BICAPRIPACDIRAP
-          </a>
+          <a href="/">BICAPRIPACDIRAP</a>
         </p>
       </NavbarBrand>
+
+      {/* Responsive Navbar Content */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-        {/* <Autocomplete
-          placeholder="Search"
-          className="max-w-xs"
-          onInputChange={fetchBooks}
-          startContent={<AiOutlineSearch />}
-        >
-          {
-            books.map((book) => 
-              <AutocompleteItem key={book.id} as={Link} href={`/books/${book.id}`} textValue={book.title}>
-                <div>
-                  <h1>{book.title}</h1>
-                  <p className='text-default-500 text-xs'>{book.author}</p>
-                </div>
-              </AutocompleteItem>
-            ).concat(
-              users.map((user) => 
-                <AutocompleteItem key={user.id} as={Link} href={`/users/${user.id}`} textValue={user.name}>
-                  <div>
-                    <h1>{user.name} {user.surname}</h1>
-                    <p className='text-default-500 text-xs'>{user.email}</p>
-                  </div>
-                </AutocompleteItem>
-              )
-            )
-          }
-        </Autocomplete> */}
+          {/* Search component goes here */}
         </NavbarItem>
       </NavbarContent>
+
       <NavbarContent justify="end">
-        {
-          user ? <>
-          <NavbarItem>
-            <p>Hello, <Link href={`/users/${user.id}`}>{user.name} {user.surname}</Link>!</p>
-          </NavbarItem>
-          </> :
+        {user ? (
+          <>
+            <NavbarItem>
+              <p>
+                Hello, <Link href={`/users/${user.id}`}>{user.name} {user.surname}</Link>!
+              </p>
+            </NavbarItem>
+          </>
+        ) : (
           <>
             <NavbarItem className="hidden lg:flex">
               <Link href="/signin">Sign In</Link>
@@ -78,8 +57,14 @@ export function Header() {
               </Button>
             </NavbarItem>
           </>
-        }
+        )}
       </NavbarContent>
+
+      {/* Mobile Navbar - Show as dropdown or a mobile-friendly version */}
+      <div className="sm:hidden flex justify-between items-center p-4">
+        <Button as={Link} href="/signin">Sign In</Button>
+        <Button as={Link} href="/signup" color="primary" variant="flat">Sign Up</Button>
+      </div>
     </Navbar>
   );
 }
