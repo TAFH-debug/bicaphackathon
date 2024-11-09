@@ -16,7 +16,7 @@ export default function Page() {
         try {
             const response = await axiosInstance.post('/auth/login', loginData);
             localStorage.setItem('token', response.data.access_token);
-            router.push('/');
+            router.push('/dashboard');
         } catch (error) {
             console.log(error);
             alert('An error occurred');
