@@ -1,5 +1,6 @@
 "use client"
 import axiosInstance from "@/axiosInstance";
+import ExerciseCard from "@/components/exerciseCard";
 import TestCard from "@/components/testCard";
 import { User } from "@/types/types";
 import { Card, CardFooter, Chip, CircularProgress, Spinner } from "@nextui-org/react";
@@ -67,7 +68,7 @@ export default function DashboardPage() {
                 <h1 className="font-bold text-xl mx-5 mt-5">Completed exercises</h1>
                 <div className='horizontal-scroll grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
                     {
-                        user.tests.length == 0 ? <p className="text-gray-300 m-auto my-[50%]">No completed tests</p> : user.tests.map((test) => <TestCard key={test.id} {...test} />)
+                        user.completedExercises.length == 0 ? <p className="text-gray-300 m-auto my-[50%]">No completed tests</p> : user.completedExercises.map((test) => <ExerciseCard key={test.id} {...test} />)
                     }
                 </div>
         </Card>
