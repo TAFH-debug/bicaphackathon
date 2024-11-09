@@ -18,7 +18,7 @@ export default function Home() {
           href={`/signup`}
           className="py-3 px-6 bg-primary text-white rounded-lg shadow-md hover:bg-green-600 transition duration-200 w-full text-center whitespace-nowrap"
         >
-          Begin Test
+          Register
         </Link>
         </div>
       </div>
